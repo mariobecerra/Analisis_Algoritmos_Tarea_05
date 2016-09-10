@@ -1,0 +1,157 @@
+%This is a LaTeX template for homework assignments
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{parskip}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{geometry}
+\usepackage{amssymb}
+ \geometry{
+ %total={170mm,257mm},
+ top=20mm,
+ bottom=20mm,
+ left=20mm,
+ right=20mm
+ }
+
+\newcommand*{\comb}[2]{\binom #1#2}%
+ 
+\begin{document}
+
+\section*{Tarea}
+
+Nombres: Mario Becerra, Miguel Vilchis \\
+Fecha: Septiembre de 2016
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Pregunta 1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Descomposición de suma en enteros}
+
+Usar un algoritmo que encuentre la forma óptima de descomponer la suma en enteros. Usarlo para calcular las siguientes potencias con $2$ espacios en memoria y $n$ espacios en memoria:
+
+\begin{multicols}{3}
+    \begin{itemize}
+        \item $x^{77}$
+        \item $x^{511}$
+        \item $x^{3631}$
+    \end{itemize}
+    \end{multicols}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Pregunta 2
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Multiplicación de matrices}
+
+Dadas $n$ matrices compatibles, encontrar el mejor ordenamiento para multiplicarlas de tal forma que se minimice el número de multiplicaciones requeridas para calcular el producto, o sea, se quiere calcular $A_1 A_2 \hdots A_n$ en el orden que minimice el número de multiplicaciones de escalares necesarias. Por ejemplo, si $n = 3$, los paréntesis de las matrices se pueden acomodar de distintas formas para llevar a cabo el producto $(A_1 A_2)A_3$ o $A_2(A_2 A_3)$.
+
+De hecho, el número de formas de acomodar los paréntesis $P(n)$ de una cadena de matrices de tamaño $n$ está dado por:
+
+\begin{equation*}
+P(n) = \left\{
+	\begin{array}{ll}
+		1                          & \mbox{si } n = 1 \\
+		\sum_{k=1}^{n-1}P(k)P(n-k) & \mbox{si } n \ge 2
+	\end{array}
+\right.
+\end{equation*}
+
+Esta función tiene una complejidad $\Omega(4^n / n^{3/2}) $. Es decir, un método por fuerza bruta (calcular todas las posibles formas de acomodar entre paréntesis) tomaría demasiado tiempo en encontrar el acomodo óptimo. Notar que esto es solo para saber el acomodo óptimo, no se está haciendo ninguna multiplicación aún.
+
+Una alternativa para resolver este problema es utilizar programación dinámica, técnica utilizada en muchas áreas para optimizar una función objetivo sujeta a distintas restricciones. En general, la programación dinámica sirve bien cuando se puede dividir el problema en distintos subproblemas que se traslapan. La programación dinámica se puede enunciar en cuatro pasos:
+
+\begin{enumerate}
+	\item Caracterizar la estrucutra de la solución óptima.
+	\item Definir recursivamente el valor de la solución óptima.
+	\item Calcular el valor de la solución óptima, típicamente, \textit{de abajo hacia arriba}.
+	\item Construir la solución óptima a partir de la información calculada.
+\end{enumerate}
+
+\subsection*{Paso 1}
+
+Sea $A_{i \hdots j} = A_i A_{i + 1} \hdots A_{j}$, con $j \geq i$. Si $j > i$ estrictamente, entonces para acomodar entre paréntesis el producto $A_i A_{i + 1} \hdots A_{j}$, se deben calcular los productos $A_{i \hdots k}$ y $A_{k + 1 \hdots j}$ para algún entero $k$ tal que $i \leq k < i$, para después calcular el producto $A_{i \hdots k} A_{k + 1 \hdots j}$ y obtener $A_{i \hdots j}$. El costo de acomodar los paréntesis de esta forma es el costo de calcular $A_{i \hdots k}$, de calcular $A_{k + 1 \hdots j}$ y de calcular su producto.
+
+Cualquier solución a una instancia no trivial (i.e. $j > i$) del problema de la multiplicación secuencial de matrices requiere que se divida el producto en dos, y cualquier solución óptima contiene dentro de ella misma soluciones óptimas a instancias de subproblemas. Así, se puede construir una solución óptima a una instancia del problema al dividir el problema en dos subproblemas (encontrar el acomodo óptimo de paréntesis de $A_{i \hdots k}$ y $A_{k + 1 \hdots j}$), encontrar soluciones óptimas para estos subproblemas y combinar estas soluciones de subproblemas. Cuando se esté buscando la posición correcta para dividir el producto, se debe de estar seguro de que se hayan considerado todos los lugares posibles, para así estar seguros de que ese está analizando el óptimo.
+
+\subsection*{Paso 2}
+
+Aquí se define recursivamente el costo de una solución óptima en términos de soluciones óptimas a subproblemas. Para el problema de la multiplicación secuencial de matrices, un subproblema se define como el problema de determinar el acomodo de paréntesis que minimiza el costo de multiplicar $A_i A_{i + 1} \hdots A_j$ para $1 \leq i \leq j \leq n$. Sea $m(i, j)$ el número mínimo de multiplicaciones escalares necesarias para calcular el producto $A_{i \hdots j}$.
+
+Se puede definir la función $m(i,j)$ recursivamente como
+
+\begin{equation}
+\label{ec_mij}
+m(i,j) = \left\{
+	\begin{array}{ll}
+		0                                                               & \mbox{si } i = j \\
+		\min_{k, i \le k < j} \{ m(i,k) + m(k+1,j) + p_{i-1} p_k p_j \} & \mbox{si } i < j
+	\end{array}
+\right.
+\end{equation}
+
+donde $p = \left[ p_0, p_1, p_2, ..., p_n \right]$ es un vector que contiene todas las dimensiones únicas de las matrices en el orden de la cadena de matrices, es decir, cada matriz $A_i$ es de dimensión $p_{i-1} \times p_i$. Esto todavía no da la información necesaria para construir una solución óptima, para eso, se define $s(i, j)$ el valor de $k$ en el que se tiene el acomodo óptimo de paréntesis en $A_i A_{i + 1} \hdots A_j$. Es decir, $s(i, j)$ es el valor de $k$ tal que $m(i, j) = m(i,k) + m(k+1,j) + p_{i-1} p_k p_j$.
+ 
+\subsection*{Paso 3}
+
+Con la recurrencia de (\ref{ec_mij}), se podría construir un algoritmo recursivo que encuentre el costo mínimo $m(1, n)$ de multiplicar $A-1 \hdots A_n$, pero este algoritmo tomaría un tiempo exponencial. Sin embargo, se puede notar que hay relativamente pocos subproblemas distintos: un subproblema para cada $i$  y $j$ que satisfacen $1 \leq i \leq j \leq n$, esto es $\comb{n}{2} + 2$. Un algoritmo recursivo se encontraría varias veces los mismos problemas muchas veces en distintas ramas del árbol de recursión.
+
+Es aquí donde entra la programación dinámica, la cual evita que se estén calculando muchas veces los mismos problemas. El primer paso es construir una tabla que ayude a calcular las soluciones. Se necesita una matriz bidimensional $m[i,j]$. Ahora, en la función recursiva $m(i,j)$ se va buscando la solución a partir de las soluciones más básicas. Entonces, usando un esquema \emph{bottom-up}, se calculan las soluciones de cadenas tamaño 0, es decir $i=j$. Luego de abajo hacia arriba se va calculando la solución. Se necesita una matriz adicional $s$ en la cual se van a guardar las entradas $s(i, j)$, o sea, qué índices de $k$ van teniendo el costo óptimo de calcular $m(i,j)$. Al final, con la tabla $s$ se va a construir la solución óptima.
+
+El algoritmo de programación dinámica que encuentra la solución de $m(i,j)$ es el siguiente. El algoritmo recibe el vector $p$ con las dimensiones de las matrices.
+
+\begin{algorithm}
+  \begin{algorithmic}
+    \Require $n = length(p) - 1$
+    \Ensure $m[1...n, 1...n]$ \& $s[1...n, 1...n]$
+    \For{$i = 1 ... n$} \\
+    \indent \indent $m[i,i] = 0$ 
+    \EndFor
+    \For{$l = 2 ... n$}
+    \indent \For{$i = 1 ... n-l+1$} \\
+    \indent \indent $ j = i + l - 1$ \\
+    \indent \indent $m[i,j]  = \infty$ 
+    \indent \indent \For{$k = i ... j-1$} \\
+    \indent \indent \indent $q = m[i,k] + m[k+1,j] + p_{i-1} p_k p_j$
+    \indent \indent \indent \If{$q < m[i,j]$} \\
+    \indent \indent \indent \indent $m[i,j] = q$ \\
+    \indent \indent \indent \indent $s[i,j] = k$
+    \indent \indent \indent \EndIf
+    \indent \indent \EndFor
+    \indent \EndFor
+    \EndFor
+  \end{algorithmic}
+\end{algorithm}
+
+Al final, el algoritmo regresa $m$ y $s$. Este algoritmo corre en $\Omega(n^3)$ y requiere de $\Theta(n^2)$ de espacio para almacenar las tablas $m$ y $s$, por lo que se puede decir que es mucho más eficiente que el algoritmo de fuerza bruta.
+
+\subsection*{Paso 4}
+
+La información que se necesita para tener la solución óptima está en la tabla $s$. Cada entrada $s(i, j)$ tiene un valor de $k$ tal que una forma óptima de acomodar los paréntesis del producto $A_i \hdots A_j$ separa el producto entre $A_k$ y $A_{k+1}$. De esta forma se sabe que la multiplicación final debe ser $A_{1 \hdots s(1,n)} A_{s(1, n) + 1 \hdots n}$. El siguiente procedimiento recursivo, llamado \verb Imprime_parentesis, imprime la forma óptima de acomodar los paréntesis en el producto.
+
+\begin{algorithm}
+  \begin{algorithmic}
+    \Require $s$, $i$, $j$
+    \If{$i$ == $j$} \\
+    \indent \indent print $A_i$
+    \EndIf \\
+    \textbf{else}\\
+    \indent \indent print $($ \\
+    \indent \indent $Imprime_parentesis(s, i, s(i, j))$
+    \indent \indent $Imprime_parentesis(s, s(i, j) + 1, j)$
+    \indent \indent print $)$ \\
+    \textbf{end else}\\
+  \end{algorithmic}
+\end{algorithm}
+
+
+\end{document}
+
+
