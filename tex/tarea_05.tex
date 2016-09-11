@@ -57,10 +57,10 @@ De hecho, el número de formas de acomodar los paréntesis $P(n)$ de una cadena 
 
 \begin{equation*}
 P(n) = \left\{
-	\begin{array}{ll}
-		1                          & \mbox{si } n = 1 \\
-		\sum_{k=1}^{n-1}P(k)P(n-k) & \mbox{si } n \ge 2
-	\end{array}
+    \begin{array}{ll}
+        1                          & \mbox{si } n = 1 \\
+        \sum_{k=1}^{n-1}P(k)P(n-k) & \mbox{si } n \ge 2
+    \end{array}
 \right.
 \end{equation*}
 
@@ -69,10 +69,10 @@ Esta función tiene una complejidad $\Omega(4^n / n^{3/2}) $. Es decir, un méto
 Una alternativa para resolver este problema es utilizar programación dinámica, técnica utilizada en muchas áreas para optimizar una función objetivo sujeta a distintas restricciones. En general, la programación dinámica sirve bien cuando se puede dividir el problema en distintos subproblemas que se traslapan. La programación dinámica se puede enunciar en cuatro pasos:
 
 \begin{enumerate}
-	\item Caracterizar la estrucutra de la solución óptima.
-	\item Definir recursivamente el valor de la solución óptima.
-	\item Calcular el valor de la solución óptima, típicamente, \textit{de abajo hacia arriba}.
-	\item Construir la solución óptima a partir de la información calculada.
+    \item Caracterizar la estrucutra de la solución óptima.
+    \item Definir recursivamente el valor de la solución óptima.
+    \item Calcular el valor de la solución óptima, típicamente, \textit{de abajo hacia arriba}.
+    \item Construir la solución óptima a partir de la información calculada.
 \end{enumerate}
 
 \subsection*{Paso 1}
@@ -90,10 +90,10 @@ Se puede definir la función $m(i,j)$ recursivamente como
 \begin{equation}
 \label{ec_mij}
 m(i,j) = \left\{
-	\begin{array}{ll}
-		0                                                               & \mbox{si } i = j \\
-		\min_{k, i \le k < j} \{ m(i,k) + m(k+1,j) + p_{i-1} p_k p_j \} & \mbox{si } i < j
-	\end{array}
+    \begin{array}{ll}
+        0                                                               & \mbox{si } i = j \\
+        \min_{k, i \le k < j} \{ m(i,k) + m(k+1,j) + p_{i-1} p_k p_j \} & \mbox{si } i < j
+    \end{array}
 \right.
 \end{equation}
 
@@ -140,7 +140,7 @@ La información que se necesita para tener la solución óptima está en la tabl
   \begin{algorithmic}
     \Require $s$, $i$, $j$
     \If{$i$ == $j$} \\
-    \indent \indent print $A_i$
+    \indent \indent print $'A'_i$
     \EndIf \\
     \textbf{else}\\
     \indent \indent print '$($' \\
@@ -153,6 +153,18 @@ La información que se necesita para tener la solución óptima está en la tabl
 
 Para ver la forma óptima de poner los paréntesis, una tendría que llamar la función \verb Imprime_parentesis $(s, 1, n)$.
 
+\subsection*{Implementación}
+
+Se implementaron los doa algoritmos mencionados en R y en C++, y se probaron con el siguiente conjunto de matrices:
+
+\begin{itemize}
+    \item $A_1 \in \mathbb{R}^{100 \times 4}$
+    \item $A_2 \in \mathbb{R}^{4 \times 50}$
+    \item $A_3 \in \mathbb{R}^{50 \times 20}$
+    \item $A_4 \in \mathbb{R}^{20 \times 100}$
+\end{itemize}
+
+El resultado final fue que se multiplicaran en el orden $A_1 \times \left( \left( A_2 \times A_3 \right) \times A_4 \right)$ con un total de 52,000 multiplicaciones de escalares.
 
 \end{document}
 
