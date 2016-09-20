@@ -9,9 +9,11 @@
 \usepackage[spanish,es-nodecimaldot]{babel}
 \usepackage{parskip}
 \usepackage{algorithm}
+\usepackage{url}
 \usepackage{algpseudocode}
 \usepackage{geometry}
 \usepackage{amssymb}
+
  \geometry{
  %total={170mm,257mm},
  top=20mm,
@@ -44,7 +46,119 @@ Usar un algoritmo que encuentre la forma óptima de descomponer la suma en enter
         \item $x^{3631}$
     \end{itemize}
     \end{multicols}
+El algoritmo que utilizamos es el siguiente: \\
+Sea $x$ la base y $e$ el exponente exponente al que queremos elevar la base entonces:\\
+\begin{algorithm}[h!]
+\caption{Algoritmo para calcular la potencia de un número con 2 espacios de memoria}\label{euclid}
+  \begin{algorithmic}
+    \Require Two nonnegative integers $x$ and $e$\\
+    $a = 1$\\
+    $b = x$
+    \While{$e != 0$}
+    \indent \If {$e \%2 != 0$} \\
+    \indent \indent $a = a \times b$ 
+    \indent \EndIf \\
+    \indent \indent$e = int(\frac{e}{2})$ 
+    \indent \If {$e != 0 $} \\
+    \indent \indent $b = b*b$ 
+    \indent \EndIf 
+    \EndWhile
+  \end{algorithmic}
+\end{algorithm}\\
+\textbf{Calculo de la complejidad}\\
+La complejidad del algoritmo descrito depende de la representación binaria del exponente, ya que, por cada iteración se hace un recorrido a la derecha de la representación binaria del exponente, que es consecuencia de la división del exponente entre 2. Es claro ver que el número de iteraciones totales del while es $log(e)$ Con base en lo descrito tenemos que la complejidad del algoritmo es de :
+\[ O((e log(x))^k)\]
 
+Aplicando este algoritmo a nuestro problema obtenemos lo siguiente: 
+\begin{center}
+    $x^{77} $ Número de operaciones: $10$  \\
+    \begin{tabular}{|c|c|}
+         \hline
+            $M_1$  & $M_2$ \\ \hline8
+            $x^{0} \times x^{1} (x^{1})$& \\ \hline
+            & $x^{1} \times x^{1} (x^{2})$ \\ \hline 
+            & $x^{2} \times x^{2} (x^{4})$ \\ \hline 
+            $x^{1} \times x^{4} (x^{5})$& \\ \hline
+            & $x^{4} \times x^{4} (x^{8})$ \\ \hline 
+            $x^{5} \times x^{8} (x^{13})$& \\ \hline
+            & $x^{8} \times x^{8} (x^{16})$ \\ \hline 
+            & $x^{16} \times x^{16} (x^{32})$ \\ \hline 
+            & $x^{32} \times x^{32} (x^{64})$ \\ \hline 
+            $x^{13} \times x^{64} (x^{77})$& \\ \hline
+        \end{tabular}
+        \end{center}
+        \newpage
+\begin{multicols}{2}
+
+        \begin{center} 
+        $x^{511}$ Número de operaciones: $17$\\ 
+        \begin{tabular}{|c|c|}
+         \hline
+           $M_1$  & $M_2$ \\ \hline
+           $x^{0} \times x^{1} (x^{1})$& \\ \hline
+        & $x^{1} \times x^{1} (x^{2})$ \\ \hline 
+        $x^{1} \times x^{2} (x^{3})$& \\ \hline
+        & $x^{2} \times x^{2} (x^{4})$ \\ \hline 
+        $x^{3} \times x^{4} (x^{7})$& \\ \hline
+        & $x^{4} \times x^{4} (x^{8})$ \\ \hline 
+        $x^{7} \times x^{8} (x^{15})$& \\ \hline
+        & $x^{8} \times x^{8} (x^{16})$ \\ \hline 
+        $x^{15} \times x^{16} (x^{31})$& \\ \hline
+        & $x^{16} \times x^{16} (x^{32})$ \\ \hline 
+        $x^{31} \times x^{32} (x^{63})$& \\ \hline
+        & $x^{32} \times x^{32} (x^{64})$ \\ \hline 
+        $x^{63} \times x^{64} (x^{127})$& \\ \hline
+        & $x^{64} \times x^{64} (x^{128})$ \\ \hline 
+        $x^{127} \times x^{128} (x^{255})$& \\ \hline
+        & $x^{128} \times x^{128} (x^{256})$ \\ \hline 
+        $x^{255} \times x^{256} (x^{511})$& \\ \hline
+            \end{tabular}
+        \end{center}
+
+        \columnbreak
+
+         $x^{3631}$ Número de operaciones: $19$ \\
+        \begin{tabular}{|c|c|}
+         \hline
+           $M_1$  & $M_2$ \\ \hline
+        $x^{0} \times x^{1} (x^{1})$& \\ \hline
+        & $x^{1} \times x^{1} (x^{2})$ \\ \hline 
+        $x^{1} \times x^{2} (x^{3})$& \\ \hline
+        & $x^{2} \times x^{2} (x^{4})$ \\ \hline 
+        $x^{3} \times x^{4} (x^{7})$& \\ \hline
+        & $x^{4} \times x^{4} (x^{8})$ \\ \hline 
+        $x^{7} \times x^{8} (x^{15})$& \\ \hline
+        & $x^{8} \times x^{8} (x^{16})$ \\ \hline 
+        & $x^{16} \times x^{16} (x^{32})$ \\ \hline 
+        $x^{15} \times x^{32} (x^{47})$& \\ \hline
+        & $x^{32} \times x^{32} (x^{64})$ \\ \hline 
+        & $x^{64} \times x^{64} (x^{128})$ \\ \hline 
+        & $x^{128} \times x^{128} (x^{256})$ \\ \hline 
+        & $x^{256} \times x^{256} (x^{512})$ \\ \hline 
+        $x^{47} \times x^{512} (x^{559})$& \\ \hline
+        & $x^{512} \times x^{512} (x^{1024})$ \\ \hline 
+        $x^{559} \times x^{1024} (x^{1583})$& \\ \hline
+        & $x^{1024} \times x^{1024} (x^{2048})$ \\ \hline 
+        $x^{1583} \times x^{2048} (x^{3631})$& \\ \hline
+    \end{tabular}\\
+        \end{multicols}
+
+Note que el anterior algoritmo genera una partición de los número naturales, del lado izquierdo trabajamos con exponentes impares y del lado derecho con exponentes pares. Ahora para generalizar el algoritmo, aplicamos el principio de divisibilidad de los enteros generando $n$ clases de equivalencia o particiones para $n$ espacios de memoria.
+Sea $e_n$ la representación de $e$ en base $n$, tenemos el siguiente algoritmo:
+\begin{algorithm}
+\caption{Algoritmo para calcular la potencia de un número con n espacios de memoria}\label{euclid}
+  \begin{algorithmic}
+    \Require Two nonnegative integers $x$ , $e$ and $n$\\
+    $espacios = [x^i \ \ for\ \ i\ \ in\ \ range(n)]$\\
+    $r = 1$
+    \For{$digiti$ $in$ $e_n$}\\
+    \indent $r = r*r$
+    \indent \If {$digit$} \\
+    \indent \indent $r = r \times espacios[digit]$ 
+    \indent \EndIf \\
+    \EndFor
+  \end{algorithmic}
+\end{algorithm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Pregunta 2
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -165,6 +279,8 @@ Se implementaron los doa algoritmos mencionados en R y en C++, y se probaron con
 \end{itemize}
 
 El resultado final fue que se multiplicaran en el orden $A_1 \times \left( \left( A_2 \times A_3 \right) \times A_4 \right)$ con un total de 52,000 multiplicaciones de escalares.
+
+El código está disponible en \url{https://github.com/mariobecerra/Analisis_Algoritmos_Tarea_05}.
 
 \end{document}
 

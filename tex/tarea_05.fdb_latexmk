@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1473552112 "tarea_05.tex" "/home/mario/Dropbox/Mario/Escuela/ITAM/MCC/Analisis_de_algoritmos/Tareas/Tarea_05/tex/tarea_05.pdf" "tarea_05" 1473552112
+["pdflatex"] 1474378274 "tarea_05.tex" "/home/mario/Dropbox/Mario/Escuela/ITAM/MCC/Analisis_de_algoritmos/Tareas/Tarea_05/tex/tarea_05.pdf" "tarea_05" 1474378275
   "/etc/texmf/web2c/texmf.cnf" 1468346178 1101 af7716885e081ab43982cab7b4672c1a ""
-  "/home/mario/Dropbox/Mario/Escuela/ITAM/MCC/Analisis_de_algoritmos/Tareas/Tarea_05/tex/tarea_05.aux" 1473552112 475 8fe19e3438f658cbea1feb1176def8b5 ""
+  "/home/mario/Dropbox/Mario/Escuela/ITAM/MCC/Analisis_de_algoritmos/Tareas/Tarea_05/tex/tarea_05.aux" 1474378275 853 9f4899bf3305ee110b02899563efb610 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1272929888 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1246382020 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -76,12 +76,13 @@
   "/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def" 1306616590 55368 3c8a0d99822330f2dfabc0dfb09ce897 ""
   "/usr/share/texlive/texmf-dist/tex/latex/placeins/placeins.sty" 1137110565 4087 636308456f60d2b31cbf97867db5708d ""
   "/usr/share/texlive/texmf-dist/tex/latex/tools/multicol.sty" 1454284088 30713 fa1ba57b1c4b4b37d548b809e66c85ba ""
+  "/usr/share/texlive/texmf-dist/tex/latex/url/url.sty" 1388531844 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1458942643 31351 b32c45dce4a01cb7b53ed90c546614ca ""
   "/usr/share/texmf/web2c/texmf.cnf" 1458942643 31351 b32c45dce4a01cb7b53ed90c546614ca ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1468346484 1863403 f3ff9a4253bcb5fb9a9baaf0c572cb01 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1468346503 3853760 3c77546f126abc81ffe378f35fe8c936 ""
-  "tarea_05.aux" 1473552112 475 8fe19e3438f658cbea1feb1176def8b5 ""
-  "tarea_05.tex" 1473552111 9957 63acb2921e93887e2c91fa5da5e0f479 ""
+  "tarea_05.aux" 1474378275 853 9f4899bf3305ee110b02899563efb610 ""
+  "tarea_05.tex" 1474378268 15202 7e54d3063f9d2e5dfaaea6362f59684d ""
   (generated)
   "/home/mario/Dropbox/Mario/Escuela/ITAM/MCC/Analisis_de_algoritmos/Tareas/Tarea_05/tex/tarea_05.pdf"
   "tarea_05.pdf"
